@@ -21,7 +21,7 @@ import { MenuComponent } from './menu/menu.component';
     BrowserAnimationsModule,
       FormsModule,
       HttpModule,
-      MAterialModule,
+      MaterialModule,
       FlexLayoutModule
   ],
   providers: [],
