@@ -41,10 +41,10 @@
         
         <md-card-content>
             <md-list fxFlex>
-                <md-list-item *ngFor="let comm of comments">
-                    <p md-line>{{comm.comment}}</p>
-                    <p md-line>{{comm.rating}} Stars</p>
-                    <p md-line>--{{comm.author}} {{ comm.date | date }}</p>
+                <md-list-item *ngFor="let comment of dish.comments">
+                    <p md-line>{{comment.comment}}</p>
+                    <p md-line>{{comment.rating}} Stars</p>
+                    <p md-line>--{{comment.author}} {{ comment.date | date }}</p>
                 
                 </md-list-item>
             

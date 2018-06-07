@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Dish } from '../shared/dish';
 
-import { Comm } from '../shared/comm';
+
 
 const DISH = {
   name: 'Uthappizza',
@@ -11,9 +11,8 @@ const DISH = {
   label: 'Hot',
   price: '4.99',
   description: 'A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives, ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.',
-};
-    
-const COMMENTS: Comm[] = [
+ 
+comments: [
     
     {
       rating: 5,
@@ -45,8 +44,8 @@ const COMMENTS: Comm[] = [
       author: "25 Cent",
       date: "2011-12-02T17:57:28.556094Z"
     }
-  ];
-
+  ]
+};
 
 
 
@@ -58,7 +57,6 @@ const COMMENTS: Comm[] = [
 export class DishdetailComponent implements OnInit {
 
     dish = DISH;
-    comments: Comm[] = COMMENTS;
     
     
   constructor() { }
