@@ -45,7 +45,42 @@
                 
                 </md-list-item>
         </md-list>
-    </div>
+        
+        <md-list *ngIf="ratingForm.valid">
+            <md-list-item>
+                <p>{{}}ratingForm.get('comment').value}}</p>
+                <p>{{ratingForm.get('rating').value}} Stars</p>
+                <p> <span>--{{ratingForm.get('author').value}}</span></p>
+            </md-list-item>
+        </md-list>
+        
+        <form novalidate [formGroup]="ratingForm" (ngSubmit)="onSubmit()">
+        <p>
+            <md-input-container class="half-width"
+            dividerColor="{{formErrors.author ? 'warn': 'primary'}}" >
+
+                <input mdInput formControlName="author" placeholder="Name" type="text"  required>
+                <md-hint color='warn'>
+                <span [hidden]="!(formErrors.author)">{{formErrors.author}}</span>
+                </md-hint> 
+            </md-input-container>
+        </p>
+    
+        <md-slider formControlName="rating" min="1" max="5" step="1" thumbLabel tickInterval="1"></md-slider>
+
+        <p>
+    <md-input-container class="half-width"
+    dividerColor="{{formErrors.comment ? 'warn': 'primary'}}">
+        <textarea matInput formControlName="comment" name="comment" rows="12" placeholder="Your Comment"></textarea>
+        <md-hint color='warn'>
+        <span [hidden]="!(formErrors.comment)">{{formErrors.comment}}</span>
+        </md-hint> 
+    </md-input-container></p>
+
+    <button type="submit" md-button class="background-primary text-floral-white" [disabled]="ratingForm.invalid">Submit</button>  
+</form>
+
+</div>
     
     <div [hidden]="dish">
         <md-spinner></md-spinner> <h4>Loading... Please wait</h4>
