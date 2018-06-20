@@ -24,6 +24,7 @@ export class DishdetailComponent implements OnInit {
     dishIds: number[];
     prev: number;
     next: number;
+errMess: string;
     
     ratingForm: FormGroup;
     ratings: Comment;
@@ -56,7 +57,8 @@ validationMessages = {
 
         this.route.params
             .switchMap((params: Params) => this.dishservice.getDish(+params['id']))
-            .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id);});
+            .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id);},
+        errmess => this.errMess = <any>errmess);
     }
     
     setPrevNext(dishId: number) {
