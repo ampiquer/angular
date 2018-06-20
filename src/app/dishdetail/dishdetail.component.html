@@ -14,7 +14,7 @@
                 </md-card-title>
             </md-card-header>
              
-            <img md-card-image src="{{dish.image}}" alt="{{dish.name}}">
+            <img md-card-image src="{{BaseURL + dish.image}}" alt="{{dish.name}}">
             
             <md-card-content>
                 <p>{{dish.description}}</p>
@@ -48,7 +48,7 @@
         
         <md-list *ngIf="ratingForm.valid">
             <md-list-item>
-                <p>{{}}ratingForm.get('comment').value}}</p>
+                <p>{{ratingForm.get('comment').value}}</p>
                 <p>{{ratingForm.get('rating').value}} Stars</p>
                 <p> <span>--{{ratingForm.get('author').value}}</span></p>
             </md-list-item>
