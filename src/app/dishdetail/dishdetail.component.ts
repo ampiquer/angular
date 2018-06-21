@@ -21,6 +21,7 @@ import { FormGroup, Validators,FormBuilder } from '@angular/forms';
 export class DishdetailComponent implements OnInit {
     
     dish: Dish;
+    dishcopy = null;
     dishIds: number[];
     prev: number;
     next: number;
@@ -57,7 +58,7 @@ validationMessages = {
 
         this.route.params
             .switchMap((params: Params) => this.dishservice.getDish(+params['id']))
-            .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id);},
+            .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id);},
         errmess => this.errMess = <any>errmess);
     }
     
@@ -108,7 +109,9 @@ validationMessages = {
 
         console.log(this.ratings);
 
-        this.dish.comments.push(this.ratings);
+        this.dishcopy.comments.push(this.ratings);
+        this.dishcopy.save()
+            .subscribe(dish => this.dish = dish);
         this.ratingForm.reset({
           name:'',
           rating:5,
