@@ -63,7 +63,7 @@
 
         <md-list fxFlex *ngIf="leaders" [@expand]>
           <md-list-item *ngFor="let leader of leaders">
-            <img md-list-avatar src={{leader.image}} alt={{leader.name}}>
+            <img md-list-avatar src="{{BaseURL + leader.image}}" alt={{leader.name}}>
             <h1 md-line> {{leader.name}} {{leader.abbr}} </h1>
               <p md-line>{{leader.designation}}</p> 
             <p md-line>
@@ -71,8 +71,12 @@
             </p>
           </md-list-item>
         </md-list>
-    <div [hidden]="leaders">
+    <div [hidden]="leaders || leaderErrMess">
         <md-spinner></md-spinner> <h4>Loading... Please wait</h4>
+</div>
+ <div *ngIf="leaderErrMess">
+        <h2>ERROR</h2>
+        <h4>{{leaderErrMess}}</h4>
     </div>
 </div>
        </div>

@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
 
-import { flyInOut } from '../animations/app.animation';
+import { flyInOut, visibility, expand } from '../animations/app.animation';
+
+import { FeedbackService } from '../services/feedback.service';
 
 @Component({
   selector: 'app-contact',
@@ -13,7 +15,9 @@ import { flyInOut } from '../animations/app.animation';
     'style':'display:block;'
 },
 animations:[
-    flyInOut()
+    flyInOut(),
+    visibility(),
+    expand()
 ]
 })
 
@@ -28,6 +32,9 @@ formErrors = {
     'telnum': '',
     'email': ''
 };
+    visibilityForm = true;
+  visibilitySpinner = false;
+  visibility = 'shown';
     
 validationMessages = {
 'firstname': {
@@ -52,14 +59,16 @@ validationMessages = {
 };
     
 
-constructor(private fb: FormBuilder) {
+constructor(private fb: FormBuilder,
+private feedbackService: FeedbackService) {
     this.createForm();
 }
 
   ngOnInit() {
+    this.createForm();
   }
     
-createForm() {
+createForm(): void {
     
 this.feedbackForm = this.fb.group({
         
@@ -95,10 +104,18 @@ for (const field in this.formErrors) {
 }
 }
     
-onSubmit() {
-    
-    this.feedback = this.feedbackForm.value;
-    console.log(this.feedback);
+onSubmit() {    
+  this.visibilityForm = false;
+  this.visibilitySpinner = true;
+  this.feedbackService.submitFeedback(this.feedbackForm.value)
+    .subscribe(feedback => {
+      this.visibilitySpinner = false;
+      this.feedback = feedback;
+      setTimeout(func => {
+        this.feedback = null;
+        this.visibilityForm = true;
+        }, 6000);
+      });
     
     this.feedbackForm.reset({
         
@@ -110,6 +127,6 @@ onSubmit() {
         contacttype: 'None',
         message: ''
         })
-}
+    }
 
 }

@@ -43,9 +43,22 @@
         
         <h3>Send us your feedback</h3>
         
-        <p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>
+      <div class="flex" *ngIf="feedback" [@visibility]="visibility" [@expand]>
+          <h3>Your submission</h3>
+          <p>First Name: {{feedback.firstname}}</p>
+          <p>Last Name: {{feedback.lastname}}</p>
+          <p>Tel. number: {{feedback.telnum}}</p>
+          <p>Email: {{feedback.email}}</p>
+          <p>Contact You?: {{feedback.agree}}</p>
+          <p>How?: {{feedback.contacttype}}</p>
+          <p>Message: {{feedback.message}}</p>
+      </div>
         
-                <form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+            <div *ngIf="visibilitySpinner">
+        <md-spinner></md-spinner> <h4>Loading... Please wait</h4>
+</div>
+        
+        <form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()" *ngIf="visibilityForm">
           <p>
             <md-input-container class="half-width"
              dividerColor="{{(formErrors.firstname) ? 'warn' : 'primary'}}">
@@ -54,6 +67,7 @@
                 <span [hidden]="!(formErrors.firstname)">
                   {{formErrors.firstname}}</span>
               </md-hint>
+                
             </md-input-container>
             <md-input-container class="half-width"
              dividerColor="{{(formErrors.lastname) ? 'warn' : 'primary'}}">
@@ -105,6 +119,5 @@
         </form>
         
     </div>
-    
     
 </div>
